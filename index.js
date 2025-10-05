@@ -20,6 +20,34 @@ app.use( session( {
 app.use( passport.initialize() )
 app.use( passport.session() )
 
+// Google OAuth Strategy
+passport.use(
+	new GoogleStrategy(
+		{
+			clientID: process.env.GOOGLE_CLIENT_ID,
+			clientSecret: process.env.CLIENT_SECRET,
+			callbackURL: `${ process.env.BASE_URL }/auth/google/callback`,
+		},
+		async ( accessToken, refreshToken, profile, done ) => {
+
+			console.log( "User profile:", profile )
+
+			// Bu yerda foydalanuvchini bazaga saqlashingiz mumkin
+			const user = {
+				id: profile.id,
+				name: profile.displayName,
+				email: profile.emails[ 0 ].value,
+				avatar: profile.photos[ 0 ].value,
+				accessToken
+			}
+
+			console.log( "User authenticated:", user )
+
+			return done( null, user )
+		}
+	)
+)
+
 //
 
 app.listen( PORT, () => {
