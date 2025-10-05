@@ -11,5 +11,11 @@
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"packageManager": "pnpm@10.16.1"
+	"packageManager": "pnpm@10.16.1",
+	"dependencies": {
+		"express": "^5.1.0",
+		"express-session": "^1.18.2",
+		"passport": "^0.7.0",
+		"passport-google-oauth20": "^2.0.0"
+	}
 }
